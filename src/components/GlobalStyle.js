@@ -41,6 +41,7 @@ img{
 }
 button{
   cursor:pointer;
+  outline:none;
 }
 input, button{
   font-family: inherit;

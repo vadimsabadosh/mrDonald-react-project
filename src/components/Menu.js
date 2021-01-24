@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import dbMenu from './DBMenu';
 import { ListItem } from './ListItem';
-import banner from '../images/banner.png';
+import { HeaderDiv } from './Banner';
 
 const MenuStyled = styled.main`
     background:#ccc;
@@ -12,25 +12,25 @@ const MenuStyled = styled.main`
 const SectionMenu = styled.section`
     padding:30px;
 `;
-const HeaderDiv = styled.div`
-width:100vw;
-height:240px;
-background-image: url('${banner}');
-background-position: center;
-background-size:cover;
-`;
 
-export const Menu = () => {
+
+export const Menu = ({setOpenItem}) => {
     return (
         <MenuStyled>
             <HeaderDiv/>
             <SectionMenu>
                 <h2>Бургерры</h2>
-                <ListItem itemList={dbMenu.burger}/>
+                <ListItem 
+                itemList={dbMenu.burger}
+                setOpenItem={setOpenItem}
+                />
             </SectionMenu>
             <SectionMenu>
                 <h2>Закуски / Напитки</h2>
-                <ListItem itemList={dbMenu.other}/>
+                <ListItem 
+                itemList={dbMenu.other}
+                setOpenItem={setOpenItem}
+                />
             </SectionMenu>
         </MenuStyled>
     )
