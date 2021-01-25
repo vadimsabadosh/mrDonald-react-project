@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import banner from '../images/banner.png';
+import banner from '../../images/banner.png';
 export const HeaderDiv = styled.div`
     width:100vw;
     height:240px;

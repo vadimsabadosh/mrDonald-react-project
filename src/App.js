@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
-import { NavBar } from './components/Navbar'; 
-import { Menu } from './components/Menu'; 
-import { GlobalStyle } from './components/GlobalStyle'; 
-import {ModalItem} from './components/ModalItem';
-import { Order } from './components/Order';
+import React from 'react';
+import { NavBar } from './components/NavBar/Navbar'; 
+import { Menu } from './components/Menu/Menu'; 
+import { GlobalStyle } from './components/Style/GlobalStyle'; 
+import {ModalItem} from './components/Modal/ModalItem';
+import { Order } from './components/Order/Order';
+import { useOpenItem } from './components/Hooks/useOpenItem';
+import { useOrders } from './components/Hooks/useOrders';
 
 function App() {
 
-  const [openItem, setOpenItem] = useState(null);
+  const openItem = useOpenItem();
+  const orders = useOrders();
 
   return (
     <>
       <GlobalStyle/>
       <NavBar/>
-      <Order/>
-      <Menu setOpenItem={setOpenItem}/>
-      <ModalItem openItem={openItem} setOpenItem={setOpenItem}/>
+      <Order {...orders}/>
+      <Menu {...openItem}/>
+      {openItem.openItem && <ModalItem {...openItem} {...orders}/>}
     </>
     
   );
