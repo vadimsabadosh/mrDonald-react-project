@@ -29,13 +29,20 @@ const Banner = styled.div`
     background-position: center;
     width:100%;
 `;
-
+const Content = styled.div`
+    display:flex;
+    width:100%;
+    justify-content:space-between;
+    align-items:center;
+`;
 const ModalBody = styled.div`
     display:flex;
     padding:15px 30px;
     width:100%;
+    flex-direction:column;
     justify-content:space-between;
     align-items:center;
+    height: calc(100% - 200px);
 `;
 
 
@@ -53,11 +60,13 @@ export const ModalItem = ({ openItem, setOpenItem }) => {
             <Modal>
                 <Banner img={openItem.img}/>
                 <ModalBody>
-                <h2>{openItem.name}</h2>
-                <h2>{openItem.price.toLocaleString('ru-RU', {
-                            style:'currency', currency: 'RUB'})}</h2>
-                </ModalBody>
+                <Content>
+                    <h2>{openItem.name}</h2>
+                    <h2>{openItem.price.toLocaleString('ru-RU', {
+                                style:'currency', currency: 'RUB'})}</h2>
+                </Content>
                 <ButtonAdd>Добавить</ButtonAdd>
+                </ModalBody>
             </Modal>
         </Overlay>
     )
