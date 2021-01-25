@@ -1,6 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ButtonAdd } from '../Style/Button';
+import { CountItem } from './CountItem';
+import { useCount } from '../Hooks/useCount';
+import { totalPriceItems } from '../Functions/secondaryFunctions';
+import { formatCurrency } from '../Functions/secondaryFunctions';
+
 
 const Overlay = styled.div`
     position:fixed;
@@ -44,10 +49,17 @@ const ModalBody = styled.div`
     align-items:center;
     height: calc(100% - 200px);
 `;
+const TotalPriceItem = styled.div`
+    display:flex;
+    width:100%;
+    justify-content:space-between;
 
+`;
 
 
 export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
+
+    const counter  = useCount();
 
     const closeModal = (e) => {  
         if(e.target.id === 'overlay'){
@@ -56,8 +68,10 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
     }
 
     const order = {
-        ...openItem
+        ...openItem,
+        count: counter.count
     };
+
 
     const addToOrder = () => {
         setOrders([...orders, order]);
@@ -69,12 +83,16 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
             <Modal>
                 <Banner img={openItem.img}/>
                 <ModalBody>
-                <Content>
-                    <h2>{openItem.name}</h2>
-                    <h2>{openItem.price.toLocaleString('ru-RU', {
-                                style:'currency', currency: 'RUB'})}</h2>
-                </Content>
-                <ButtonAdd onClick={addToOrder}>Добавить</ButtonAdd>
+                    <Content>
+                        <h2>{openItem.name}</h2>
+                        <h2>{formatCurrency(openItem.price)}</h2>
+                    </Content>
+                    <CountItem {...counter}/>
+                    <TotalPriceItem>
+                        <span>Цена:</span>
+                        <span>{formatCurrency(totalPriceItems(order))}</span>
+                    </TotalPriceItem>
+                    <ButtonAdd onClick={addToOrder}>Добавить</ButtonAdd>
                 </ModalBody>
             </Modal>
         </Overlay>

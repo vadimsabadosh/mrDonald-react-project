@@ -46,4 +46,13 @@ button{
 input, button{
   font-family: inherit;
 }
+input[type="number"] {
+  -moz-appearance:textfieled;
+  -webkit-appearance:textfieled;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+  -webkit-appearance:none;
+
+}
 `;
