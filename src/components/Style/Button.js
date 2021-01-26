@@ -14,4 +14,14 @@ export const ButtonAdd = styled.button`
         color: green;
         border: 2px solid green;
     }
+    &:disabled{
+        background-color: grey;
+        
+    }
+    &:disabled:hover{
+        background-color: white;
+        color: grey;
+        border: 2px solid grey;
+        
+    }
 `;
