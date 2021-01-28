@@ -41,7 +41,27 @@ const LoginBtn = styled.button`
     cursor:pointer;
   `;
 
-export const NavBar = () => {
+const User = styled.div`
+    display:flex;
+    align-items:center;
+    flex-direction:column;
+`;
+const DisplayName = styled.p`
+    font-size: 16px;
+    margin-bottom: 6px;
+`;
+const Logout = styled.button`
+    background: transparent;
+    border-radius: 3px;
+    border: 2px solid white;
+    color: white;
+    margin: 0 1em;
+    padding: 0.25em 1em;
+    outline:none;
+    cursor:pointer;
+  `;
+
+export const NavBar = ({authentication, login, logout}) => {
 
     return (
 
@@ -50,7 +70,12 @@ export const NavBar = () => {
                 <ImgLogo src={LogoImg} alt="Logo"/>
                 <H1>Mr. Donald</H1>
             </Logo>
-            <LoginBtn>Войти</LoginBtn>
+            {authentication ? 
+            <User>
+                <DisplayName>{authentication.displayName}</DisplayName>
+                <Logout onClick={logout}>Выйти</Logout>
+            </User> : 
+            <LoginBtn onClick={login}>Войти</LoginBtn> }
         </NavBarStyled>
 
     )
