@@ -55,7 +55,7 @@ const EmptyList = styled.p`
     text-align:center;
 
 `;
-export const Order = ({ orders, setOrders, setOpenItem, authentication, login, firebaseDatabase }) => {
+export const Order = ({ orders, setOrders, setOpenItem, authentication, login, database }) => {
     
     const rulesData = {
         name: ['name'],
@@ -64,8 +64,6 @@ export const Order = ({ orders, setOrders, setOpenItem, authentication, login, f
         topping: ['topping', arr => arr.filter(obj => obj.checked).map(obj => obj.name)],
         choice:['choice', item => item ? item : 'no choices']
     }
-
-    const database = firebaseDatabase();
 
     const sendOrder = () => {
         const newOrder = orders.map(projection(rulesData));

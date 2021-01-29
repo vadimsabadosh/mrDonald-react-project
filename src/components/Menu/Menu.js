@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import dbMenu from '../DBMenu';
 import { ListItem } from './ListItem';
 import { HeaderDiv } from './Banner';
+import { Loading } from './Loading';
+//import { useFetch } from '../Hooks/useFetch';
 
 const MenuStyled = styled.main`
     background:#ccc;
@@ -15,10 +16,17 @@ const SectionMenu = styled.section`
 `;
 
 
-export const Menu = ({setOpenItem}) => {
+export const Menu = ({setOpenItem, dbMenu}) => {
+
+    // const res = useFetch();
+
+    // const dbMenu = res.response;
+
     return (
         <MenuStyled>
             <HeaderDiv/>
+            {dbMenu ? 
+            <>
             <SectionMenu>
                 <h2>Бургерры</h2>
                 <ListItem 
@@ -33,6 +41,8 @@ export const Menu = ({setOpenItem}) => {
                 setOpenItem={setOpenItem}
                 />
             </SectionMenu>
+            </> : 
+            <Loading/>}
         </MenuStyled>
     )
 }

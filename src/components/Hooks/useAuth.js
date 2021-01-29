@@ -6,7 +6,7 @@ export function useAuth(authFirebase) {
     const [authentication, setAuthentication] = useState(null);
     
     const auth = authFirebase();
-    const provider = new authFirebase.GoogleAuthProvider;
+    const provider = new authFirebase.GoogleAuthProvider();
     
     const login = () => auth.signInWithPopup(provider);
 

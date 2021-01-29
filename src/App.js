@@ -5,12 +5,13 @@ import 'firebase/database';
 import { NavBar } from './components/NavBar/Navbar'; 
 import { Menu } from './components/Menu/Menu'; 
 import { GlobalStyle } from './components/Style/GlobalStyle'; 
-import {ModalItem} from './components/Modal/ModalItem';
+import { ModalItem } from './components/Modal/ModalItem';
 import { Order } from './components/Order/Order';
 import { useOpenItem } from './components/Hooks/useOpenItem';
 import { useOrders } from './components/Hooks/useOrders';
 import { useAuth } from './components/Hooks/useAuth'
 import { useTitle } from './components/Hooks/useTitle'
+import { useDB } from './components/Hooks/useDB'
 
 
 const firebaseConfig = {
@@ -29,6 +30,8 @@ function App() {
   const auth = useAuth(firebase.auth);
   const openItem = useOpenItem();
   const orders = useOrders();
+  const database = firebase.database();
+  const dbMenu = useDB(database);
   useTitle(openItem.openItem);
 
   return (
@@ -39,9 +42,9 @@ function App() {
         {...orders} 
         {...openItem} 
         {...auth}
-        firebaseDatabase={firebase.database}
+        database={database}
       />
-      <Menu {...openItem}/>
+      <Menu {...openItem} dbMenu={dbMenu}/>
       {openItem.openItem && <ModalItem {...openItem} {...orders}/>}
     </>
     
