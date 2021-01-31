@@ -11,7 +11,6 @@ const Loading = styled.div`
     justify-content:center;
 `;
 
-
     return (
         <Loading>
             <div className='sk-fading-circle'>

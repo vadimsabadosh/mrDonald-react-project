@@ -9,9 +9,12 @@ import { ModalItem } from './components/Modal/ModalItem';
 import { Order } from './components/Order/Order';
 import { useOpenItem } from './components/Hooks/useOpenItem';
 import { useOrders } from './components/Hooks/useOrders';
-import { useAuth } from './components/Hooks/useAuth'
-import { useTitle } from './components/Hooks/useTitle'
-import { useDB } from './components/Hooks/useDB'
+import { useAuth } from './components/Hooks/useAuth';
+import { useTitle } from './components/Hooks/useTitle';
+import { useDB } from './components/Hooks/useDB';
+import { OrderConfirm } from './components/Order/OrderConfirm';
+import { useOrderConfirm } from './components/Hooks/useOrderConfirm';
+import { Context } from './components/Functions/context'
 
 
 const firebaseConfig = {
@@ -32,21 +35,18 @@ function App() {
   const orders = useOrders();
   const database = firebase.database();
   const dbMenu = useDB(database);
+  const orderConfirm = useOrderConfirm();
   useTitle(openItem.openItem);
 
   return (
-    <>
+    <Context.Provider value={{ auth, openItem, orders, orderConfirm, dbMenu, database }}>
       <GlobalStyle/>
-      <NavBar {...auth}/>
-      <Order 
-        {...orders} 
-        {...openItem} 
-        {...auth}
-        database={database}
-      />
-      <Menu {...openItem} dbMenu={dbMenu}/>
-      {openItem.openItem && <ModalItem {...openItem} {...orders}/>}
-    </>
+      <NavBar/>
+      <Order/>
+      <Menu />
+      {openItem.openItem && <ModalItem />}
+      { orderConfirm.openOrderConfirm && <OrderConfirm /> }
+    </Context.Provider>
     
   );
 }
