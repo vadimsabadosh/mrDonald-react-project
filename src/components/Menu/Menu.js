@@ -20,10 +20,8 @@ const SectionMenu = styled.section`
 
 export const Menu = () => {
 
-    const { openItem: {setOpenItem}, dbMenu } = useContext(Context);
-    // const res = useFetch();
+    const { dbMenu } = useContext(Context);
 
-    // const dbMenu = res.response;
 
     return (
         <MenuStyled>
@@ -34,14 +32,12 @@ export const Menu = () => {
                 <h2>Бургерры</h2>
                 <ListItem 
                 itemList={dbMenu.burger}
-                setOpenItem={setOpenItem}
                 />
             </SectionMenu>
             <SectionMenu>
                 <h2>Закуски / Напитки</h2>
                 <ListItem 
                 itemList={dbMenu.other}
-                setOpenItem={setOpenItem}
                 />
             </SectionMenu>
             </> : 

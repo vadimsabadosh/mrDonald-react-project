@@ -8,17 +8,20 @@ import { formatCurrency } from '../Functions/secondaryFunctions';
 import { Context } from '../Functions/context';
 
 
-
 const Modal = styled.div`
     background-color:white;
     width:600px;
     padding:30px;
-
+    text-align: center;
 `;
 
 const Text = styled.h3`
     text-align:center;
     margin-bottom:30px;
+`;
+
+const Span = styled.span`
+    text-align: left;
 `;
 const rulesData = {
     name: ['name'],
@@ -39,26 +42,38 @@ const sendOrder = (database, orders, authentication) => {
 }
 
 export const OrderConfirm = () => {
-    const {database, orders: { orders, setOrders }, auth: { authentication }, orderConfirm: { setOpenOrderConfirm } } = useContext(Context);
+    const { 
+        database, 
+        orders: { orders, setOrders }, 
+        auth: { authentication }, 
+        orderConfirm: { setOpenOrderConfirm },
+        thanks: { setOpen }
+    } = useContext(Context);
+    
     const total = orders.reduce((result, order) => totalPriceItems(order) + result, 0);
 
     return (
+        <>
         <Overlay>
             <Modal>
                 <OrderTitle>{authentication.displayName}</OrderTitle>
                 <Text>Осталось только подвердить ваш заказ</Text>
                 <Total>
-                    <span>Итого:</span>
+                    <Span>Итого:</Span>
                     <TotalPrice>{formatCurrency(total)}</TotalPrice>
                 </Total>
                 <ButtonAdd onClick={() => {
                     sendOrder(database, orders, authentication);
                     setOrders([]);
                     setOpenOrderConfirm(false);
+                    setOpen(true)
                 }}>
                     Подтвердить
                 </ButtonAdd>
+                
             </Modal>
         </Overlay>
+
+        </>
     )
 }

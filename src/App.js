@@ -14,7 +14,9 @@ import { useTitle } from './components/Hooks/useTitle';
 import { useDB } from './components/Hooks/useDB';
 import { OrderConfirm } from './components/Order/OrderConfirm';
 import { useOrderConfirm } from './components/Hooks/useOrderConfirm';
+import { useThanks } from './components/Hooks/useThanks';
 import { Context } from './components/Functions/context'
+import { ModalThanks } from './components/Modal/ModalThanks';
 
 
 const firebaseConfig = {
@@ -36,16 +38,18 @@ function App() {
   const database = firebase.database();
   const dbMenu = useDB(database);
   const orderConfirm = useOrderConfirm();
+  const thanks = useThanks();
   useTitle(openItem.openItem);
 
   return (
-    <Context.Provider value={{ auth, openItem, orders, orderConfirm, dbMenu, database }}>
+    <Context.Provider value={{ auth, openItem, orders, orderConfirm, dbMenu, database,thanks }}>
       <GlobalStyle/>
       <NavBar/>
       <Order/>
       <Menu />
       {openItem.openItem && <ModalItem />}
       { orderConfirm.openOrderConfirm && <OrderConfirm /> }
+      {thanks.open && <ModalThanks/>}
     </Context.Provider>
     
   );

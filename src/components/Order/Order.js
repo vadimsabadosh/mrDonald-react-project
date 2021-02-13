@@ -2,13 +2,9 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ButtonAdd } from "../Style/Button";
 import { OrderListItem } from "./OrderListItem";
-import { totalPriceItems } from '../Functions/secondaryFunctions';
-import { formatCurrency } from '../Functions/secondaryFunctions';
-import { Context } from '../Functions/context'
+import { totalPriceItems, formatCurrency } from '../Functions/secondaryFunctions';
+import { Context } from '../Functions/context';
 import { OrderTitle, Total, TotalPrice } from '../Style/OptionComponents';
-
-
-
 
 const OrderStyled = styled.section`
     position:fixed;
@@ -41,7 +37,11 @@ const EmptyList = styled.p`
 `;
 export const Order = () => {
     
-    const { orders: {orders, setOrders}, openItem: {setOpenItem}, auth: {authentication, login}, orderConfirm: {setOpenOrderConfirm} } = useContext(Context);
+    const { 
+        orders: {orders, setOrders}, 
+        auth: {authentication, login}, 
+        orderConfirm: {setOpenOrderConfirm} 
+    } = useContext(Context);
 
     
     const deleteItem = index => {
@@ -63,7 +63,6 @@ export const Order = () => {
                             order={order} 
                             deleteItem={deleteItem} 
                             index={index} 
-                            setOpenItem={setOpenItem}
                         />)
                     }
                 </OrderList> : 
@@ -85,7 +84,7 @@ export const Order = () => {
                     login()
                 }}}
                 >Оформить</ButtonAdd>
-            </> : <></>}
+            </> : null}
         </OrderStyled>
     )
 }
